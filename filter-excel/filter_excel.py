@@ -4,8 +4,6 @@ from os.path import exists
 SHEET_FILE_DEFAULT = "sheet.xlsx"
 KEYWORDS_FILE_DEFAULT = "keywords.txt"
 RESULT_FILE_DEFAULT = "results.txt"
-COL_NUMBER = 15
-NUM_ROWS = 1660
 
 def get_keywords(keywords_file):
   # Read a text file of keywords into an array
@@ -51,8 +49,8 @@ def filter_keywords_inclusive(sheet_file, keywords_file, result_file):
   file = open(result_file, "a")
 
   # Excel sheets are not zero-indexed.
-  for row in range(2, NUM_ROWS):
-    cell = worksheet.cell(row=row, column=COL_NUMBER)
+  for row in range(2, num_rows):
+    cell = worksheet.cell(row=row, column=col_num)
     text = cell.value
     trigger_words = get_trigger_words(text, keywords)
     if trigger_words:
@@ -83,7 +81,11 @@ def main():
     # Remove flags
     args = args[2:]
 
-  filter_keywords_inclusive(sheet_file, keywords_file, result_file)
+  if (len(args) < 2) {
+    print("Need the number of rows and the column to read from.")
+  }
+
+  filter_keywords_inclusive(sheet_file, keywords_file, result_file, num_rows, col_num)
 
 if __name__ == "__main__":
   main()
