@@ -4,6 +4,7 @@ from os.path import exists
 SHEET_FILE_DEFAULT = "sheet.xlsx"
 KEYWORDS_FILE_DEFAULT = "keywords.txt"
 RESULT_FILE_DEFAULT = "results.txt"
+CASE_INSENSITIVE = False
 
 def get_keywords(keywords_file):
   # Read a text file of keywords into an array
@@ -17,12 +18,18 @@ def get_keywords(keywords_file):
   return keywords
 
 """
-Checks if any of the keywords exist in the paragraph.
+Checks if any of the keywords exist in the text.
 """
-def get_trigger_words(paragraph, keywords):
+def get_trigger_words(text, keywords):
   trigger_words = []
+  new_text = text;
+  if (CASE_INSENSITIVE):
+    new_text = new_text.lower()
   for word in keywords:
-    if word in paragraph:
+    new_word = word
+    if (CASE_INSENSITIVE):
+      new_word = word.lower()
+    if new_word in new_text:
       trigger_words.append(word)
   return trigger_words
 
@@ -71,19 +78,23 @@ def main():
     # Process all flags
     if args[0] == "-k":
       keywords_file = args[1]
+      args = args[2:]
     elif args[0] == "-s":
       sheet_file = args[1]
+      args = args[2:]
     elif args[0] == "-r":
       result_file = args[1]
+      args = args[2:]
+    elif args[0] == "--case-insensitive":
+      CASE_INSENSITIVE = True
+      args = args[1:]
     else:
       print("Invalid flag")
       return
-    # Remove flags
-    args = args[2:]
 
-  if (len(args) < 2) {
+  if (len(args) < 2):
     print("Need the number of rows and the column to read from.")
-  }
+    return
 
   filter_keywords_inclusive(sheet_file, keywords_file, result_file, num_rows, col_num)
 
