@@ -6,18 +6,18 @@ information and returns all rows containing keywords specified in a keywords fil
 python filter\_excel.py [-k keyword\_file\_name]
                         [-s sheet\_file\_name]
                         [-r result\_file\_name]
-                        [--case-insensitive]
+                        [\-\-case-insensitive]
                         num\_rows
                         col\_num
 
 The "-k" flag is optional. If not passed, then the program expects a default
-keywords file named "keywords.txt".
+keywords file named "keywords.txt" in the current directory.
 
 The "-s" flag is optional. If not passed, then the program expects a default
-Excel sheet file named "sheet.xlsx".
+Excel sheet file named "sheet.xlsx" in the current directory.
 
 The "-r" flag is optional. If not passed, then the program creates or
-overwrites a text file called "results.txt".
+overwrites a text file called "results.txt" into the current directory.
 
 The "--case-insensitive" flag is optional. If passed, then all searches for
 keywords are case insensitive. For example, if passed, the keywords "SEA" and
