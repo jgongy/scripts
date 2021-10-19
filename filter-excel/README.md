@@ -6,6 +6,7 @@ information and returns all rows containing keywords specified in a keywords fil
 python filter\_excel.py [-k keyword\_file\_name]
                         [-s sheet\_file\_name]
                         [-r result\_file\_name]
+                        [--case-insensitive]
                         num\_rows
                         col\_num
 
@@ -17,6 +18,10 @@ Excel sheet file named "sheet.xlsx".
 
 The "-r" flag is optional. If not passed, then the program creates or
 overwrites a text file called "results.txt".
+
+The "--case-insensitive" flag is optional. If passed, then all searches for
+keywords are case insensitive. For example, if passed, the keywords "SEA" and
+"sea" will be equivalent.
 
 num\_rows: The number of rows of data.
 
