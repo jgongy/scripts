@@ -39,7 +39,7 @@ Example "keywords.txt":
 
 As you can see, surrounding quotes allow you to distinct word fragments
 or smaller words from whole or larger words. For example, distinguishing
-"sea" from "reSEArch" can be done by using the keyword " sea ". Note,
+"sea" from "research" can be done by using the keyword " sea ". Note,
 however, that you will not find phrases like "sea." or "sea," as a result.
 
 Keywords are case sensitive. There is no support for wildcard characters.
