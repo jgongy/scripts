@@ -36,7 +36,7 @@ def filter_keywords_inclusive(sheet_file, keywords_file):
     print(f'No valid keywords file "{keywords_file}" could be found in current directory.')
     return
   if (not exists(sheet_file)):
-    print(f'No valid keywords file "{sheet_file}" could be found in current directory.')
+    print(f'No valid Excel file "{sheet_file}" could be found in current directory.')
     return
 
   keywords = get_keywords(keywords_file)
