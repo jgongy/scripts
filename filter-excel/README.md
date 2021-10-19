@@ -1,6 +1,6 @@
 # Description
-A Python script that takes an Excel spreadsheet with a single sheet of course
-information and returns all rows containing keywords specified in a keywords file.
+A Python script that takes an Excel spreadsheet with a single sheet of
+information and returns all rows containing keywords in a particular cell.
 
 # How to Use
 python filter\_excel.py [-k keyword\_file\_name]
