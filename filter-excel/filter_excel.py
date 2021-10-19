@@ -4,7 +4,6 @@ from os.path import exists
 SHEET_FILE_DEFAULT = "sheet.xlsx"
 KEYWORDS_FILE_DEFAULT = "keywords.txt"
 RESULT_FILE_DEFAULT = "results.txt"
-CASE_INSENSITIVE = False
 
 def get_keywords(keywords_file):
   # Read a text file of keywords into an array
@@ -20,14 +19,14 @@ def get_keywords(keywords_file):
 """
 Checks if any of the keywords exist in the text.
 """
-def get_trigger_words(text, keywords):
+def get_trigger_words(text, keywords, ci):
   trigger_words = []
   new_text = text;
-  if (CASE_INSENSITIVE):
+  if (ci):
     new_text = new_text.lower()
   for word in keywords:
     new_word = word
-    if (CASE_INSENSITIVE):
+    if (ci):
       new_word = word.lower()
     if new_word in new_text:
       trigger_words.append(word)
@@ -36,7 +35,7 @@ def get_trigger_words(text, keywords):
 """
 Assumes there is only one sheet in the workbook.
 """
-def filter_keywords_inclusive(sheet_file, keywords_file, result_file):
+def filter_keywords_inclusive(sheet_file, keywords_file, result_file, num_rows, col_num, ci):
   if (not exists(keywords_file)):
     print(f'No valid keywords file "{keywords_file}" could be found in current directory.')
     return
@@ -59,7 +58,7 @@ def filter_keywords_inclusive(sheet_file, keywords_file, result_file):
   for row in range(2, num_rows):
     cell = worksheet.cell(row=row, column=col_num)
     text = cell.value
-    trigger_words = get_trigger_words(text, keywords)
+    trigger_words = get_trigger_words(text, keywords, ci)
     if trigger_words:
       # There is at least one trigger word
       file.write(cell.coordinate)
@@ -74,6 +73,7 @@ def main():
   keywords_file = KEYWORDS_FILE_DEFAULT
   sheet_file = SHEET_FILE_DEFAULT
   result_file = RESULT_FILE_DEFAULT
+  ci = False;
   while (len(args) > 0 and args[0][0] == '-'):
     # Process all flags
     if args[0] == "-k":
@@ -86,7 +86,7 @@ def main():
       result_file = args[1]
       args = args[2:]
     elif args[0] == "--case-insensitive":
-      CASE_INSENSITIVE = True
+      ci = True
       args = args[1:]
     else:
       print("Invalid flag")
@@ -96,7 +96,7 @@ def main():
     print("Need the number of rows and the column to read from.")
     return
 
-  filter_keywords_inclusive(sheet_file, keywords_file, result_file, num_rows, col_num)
+  filter_keywords_inclusive(sheet_file, keywords_file, result_file, int(args[0]), int(args[1]), ci)
 
 if __name__ == "__main__":
   main()
