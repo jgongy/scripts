@@ -1,7 +1,7 @@
-import openpyxl, os
+import openpyxl, sys
 
 SHEET_NAME = "All Courses_CY2021 analysis.xlsx"
-KEYWORDS_FILE = "keywords.txt"
+KEYWORDS_FILE_DEFAULT = "keywords.txt"
 RESULTS_FILE = "results.txt"
 COL_NUMBER = 15
 NUM_ROWS = 1660
@@ -55,7 +55,8 @@ def filter_keywords_inclusive(keywords):
   file.close()
 
 def main():
-  keywords = get_keywords()
+  args = sys.argv[1:]
+  keywords = get_keywords(args[1]) if args[0] == "-k" else get_keywords(KEYWORDS_FILE_DEFAULT)
   filter_keywords_inclusive(keywords)
 
 if __name__ == "__main__":
