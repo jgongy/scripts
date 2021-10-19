@@ -1,15 +1,16 @@
 import openpyxl, sys
+from os.path import exists
 
-SHEET_NAME = "All Courses_CY2021 analysis.xlsx"
+SHEET_FILE_DEFAULT = "sheet.xlsx"
 KEYWORDS_FILE_DEFAULT = "keywords.txt"
 RESULTS_FILE = "results.txt"
 COL_NUMBER = 15
 NUM_ROWS = 1660
 
-def get_keywords():
+def get_keywords(keywords_file):
   # Read a text file of keywords into an array
   keywords = set()
-  with open(KEYWORDS_FILE) as f:
+  with open(keywords_file, "r") as f:
     words = f.readlines()
     # Strip the newline and other spaces, then strip surrounding quotes
     words = map(lambda word: word.strip().strip('\"'), words)
@@ -26,13 +27,20 @@ def get_trigger_words(paragraph, keywords):
     if word in paragraph:
       trigger_words.append(word)
   return trigger_words
-  
 
 """
 Assumes there is only one sheet in the workbook.
 """
-def filter_keywords_inclusive(keywords):
-  workbook = openpyxl.load_workbook(SHEET_NAME)
+def filter_keywords_inclusive(sheet_file, keywords_file):
+  if (not exists(keywords_file)):
+    print(f'No valid keywords file "{keywords_file}" could be found in current directory.')
+    return
+  if (not exists(sheet_file)):
+    print(f'No valid keywords file "{sheet_file}" could be found in current directory.')
+    return
+
+  keywords = get_keywords(keywords_file)
+  workbook = openpyxl.load_workbook(sheet_file)
   worksheet = workbook.active
 
   # Empties the file
@@ -56,8 +64,22 @@ def filter_keywords_inclusive(keywords):
 
 def main():
   args = sys.argv[1:]
-  keywords = get_keywords(args[1]) if args[0] == "-k" else get_keywords(KEYWORDS_FILE_DEFAULT)
-  filter_keywords_inclusive(keywords)
+
+  keywords_file = KEYWORDS_FILE_DEFAULT
+  sheet_file = SHEET_FILE_DEFAULT
+  while (len(args) > 0 and args[0][0] == '-'):
+    # Process all flags
+    if args[0] == "-k":
+      keywords_file = args[1]
+    elif args[0] == "-s":
+      sheet_file = args[1]
+    else:
+      print("Invalid flag")
+      return
+    # Remove flags
+    args = args[2:]
+
+  filter_keywords_inclusive(sheet_file, keywords_file)
 
 if __name__ == "__main__":
   main()
