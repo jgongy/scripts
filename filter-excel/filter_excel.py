@@ -3,7 +3,7 @@ from os.path import exists
 
 SHEET_FILE_DEFAULT = "sheet.xlsx"
 KEYWORDS_FILE_DEFAULT = "keywords.txt"
-RESULTS_FILE = "results.txt"
+RESULT_FILE_DEFAULT = "results.txt"
 COL_NUMBER = 15
 NUM_ROWS = 1660
 
@@ -31,7 +31,7 @@ def get_trigger_words(paragraph, keywords):
 """
 Assumes there is only one sheet in the workbook.
 """
-def filter_keywords_inclusive(sheet_file, keywords_file):
+def filter_keywords_inclusive(sheet_file, keywords_file, result_file):
   if (not exists(keywords_file)):
     print(f'No valid keywords file "{keywords_file}" could be found in current directory.')
     return
@@ -44,13 +44,14 @@ def filter_keywords_inclusive(sheet_file, keywords_file):
   worksheet = workbook.active
 
   # Empties the file
-  file = open(RESULTS_FILE, "w")
+  file = open(result_file, "w")
   file.write("")
   file.close()
 
-  file = open(RESULTS_FILE, "a")
+  file = open(result_file, "a")
 
-  for row in range(2, NUM_ROWS + 1): # Excel sheets are not zero-indexed.
+  # Excel sheets are not zero-indexed.
+  for row in range(2, NUM_ROWS):
     cell = worksheet.cell(row=row, column=COL_NUMBER)
     text = cell.value
     trigger_words = get_trigger_words(text, keywords)
@@ -67,19 +68,22 @@ def main():
 
   keywords_file = KEYWORDS_FILE_DEFAULT
   sheet_file = SHEET_FILE_DEFAULT
+  result_file = RESULT_FILE_DEFAULT
   while (len(args) > 0 and args[0][0] == '-'):
     # Process all flags
     if args[0] == "-k":
       keywords_file = args[1]
     elif args[0] == "-s":
       sheet_file = args[1]
+    elif args[0] == "-r":
+      result_file = args[1]
     else:
       print("Invalid flag")
       return
     # Remove flags
     args = args[2:]
 
-  filter_keywords_inclusive(sheet_file, keywords_file)
+  filter_keywords_inclusive(sheet_file, keywords_file, result_file)
 
 if __name__ == "__main__":
   main()
