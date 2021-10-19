@@ -11,10 +11,10 @@ def get_keywords():
   keywords = set()
   with open(KEYWORDS_FILE) as f:
     words = f.readlines()
+    # Strip the newline and other spaces, then strip surrounding quotes
     words = map(lambda word: word.strip().strip('\"'), words)
     keywords = set(words);
 
-  print(keywords)
   return keywords
 
 """
@@ -54,11 +54,11 @@ def filter_keywords_inclusive(keywords):
 
   file.close()
 
-
-
-
-if __name__ == "__main__":
+def main():
   keywords = get_keywords()
   filter_keywords_inclusive(keywords)
+
+if __name__ == "__main__":
+  main()
 
 
