@@ -10,10 +10,9 @@ def get_keywords():
   # Read a text file of keywords into an array
   keywords = set()
   with open(KEYWORDS_FILE) as f:
-    words = f.read()
-    # split_words = words.split() # .split() will split on and remove any whitespace
-    for word in split_words:
-      keywords.add(word)
+    words = f.readlines()
+    words = map(lambda word: word.strip().strip('\"'), words)
+    keywords = set(words);
 
   print(keywords)
   return keywords
