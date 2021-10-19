@@ -28,7 +28,7 @@ num\_rows: The number of rows of data.
 col\_num: The column number to find keywords in. (A=1, B=2, C=3,..., Z=26)
 
 # "keywords.txt" Requirements
-Please put each keyword on a new line and surround by quotation marks. The
+Please put each keyword on a new line and surrounded by quotation marks. The
 quotation marks allow you to add leading spaces for a keyword.
 
 Example "keywords.txt":  
@@ -39,7 +39,7 @@ Example "keywords.txt":
 
 As you can see, surrounding quotes allow you to distinct word fragments
 or smaller words from whole or larger words. For example, distinguishing
-" sea " from "reSEArch" can be done by using spaces within the quotes. Note,
+"sea" from "reSEArch" can be done by using the keyword " sea ". Note,
 however, that you will not find phrases like "sea." or "sea," as a result.
 
 Keywords are case sensitive. There is no support for wildcard characters.
