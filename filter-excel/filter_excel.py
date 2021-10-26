@@ -58,6 +58,9 @@ def filter_keywords_inclusive(sheet_file, keywords_file, result_file, num_rows, 
   for row in range(2, num_rows):
     cell = worksheet.cell(row=row, column=col_num)
     text = cell.value
+    if (not text):
+      # Text is None type (i.e. cell had no value or text in it)
+      text = ""
     trigger_words = get_trigger_words(text, keywords, ci)
     if trigger_words:
       # There is at least one trigger word
