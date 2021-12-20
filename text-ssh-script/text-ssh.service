@@ -1,0 +1,15 @@
+[Unit]
+Description=Text SSH Command
+After=network.service ngrok.service
+
+[Service]
+Type=simple
+User=(PUT USER HERE)
+Restart=always
+RestartSec=3
+WorkingDirectory=(PUT DIRECTORY WITH .py FILE HERE)
+ExecStart=/usr/bin/python send-ssh-command-by-text.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
