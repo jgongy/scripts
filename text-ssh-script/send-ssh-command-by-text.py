@@ -4,7 +4,7 @@ import subprocess
 import getpass
 
 EMAIL_BODY_FILENAME = "email-body.txt"
-TARGET_EMAIL = "##########@tmomail.net"
+TARGET_EMAIL = "##########@#####"
 
 def getTunnelString():
   tunnelJSONBytes = subprocess.run(["curl", "-s",
