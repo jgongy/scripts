@@ -1,6 +1,7 @@
 # Description
 A Python script that takes an Excel spreadsheet with a single sheet of
-information and returns all rows containing keywords in a particular cell.
+information and prints all rows containing user-chosen keywords in a
+specific column.
 
 # How to Use
 python filter\_excel.py [-k keyword\_file\_name]
