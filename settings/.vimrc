@@ -1,0 +1,1 @@
+/home/jackie/.vimrc
