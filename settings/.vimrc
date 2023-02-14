@@ -52,4 +52,4 @@ fun! s:LongLineHLToggle()
  endif
 endfunction
 
-autocmd FileType python setlocal ts=2 | setlocal expandtab
+" autocmd FileType python setlocal ts=2 | setlocal expandtab
