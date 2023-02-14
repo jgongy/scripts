@@ -1,3 +1,6 @@
+" Automatically detect file type
+filetype plugin on
+
 " Autoindent when returning on a line
 set autoindent
 
