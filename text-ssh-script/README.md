@@ -10,6 +10,10 @@ ngrok and Python3 must be installed and network access must be available.
 The 'mutt' email client, set up with an email account.
 A phone number.
 
+# Note
+If using a Gmail account, you will want to use an 'App Password' for
+setting up the IMAP password in .muttrc.
+
 # Steps
 1. Change the 'User' and 'WorkingDirectory' fields in .service file to the
 current user and directory location of the .py file, respectively.
